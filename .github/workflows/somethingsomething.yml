@@ -17,5 +17,5 @@ jobs:
         NEKOWEB_API_KEY: ${{ secrets.NEKOWEB_API_KEY }}
       run: |
         curl --request GET \
-        --url 'http://nekoweb.org/api/files/limits?=' \
+        --url 'https://nekoweb.org/api/files/limits?=' \
         --header 'Authorization: Bearer $NEKOWEB_API_KEY'
