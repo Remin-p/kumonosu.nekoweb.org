@@ -7,14 +7,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  limits:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the site 
+    - name: Check limits 
+      env:
+        NEKOWEB_API_KEY: ${{ secrets.NEKOWEB_API_KEY }}
       run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+        curl --request GET \
+        --url 'http://nekoweb.org/api/files/limits?=' \
+        --header 'Authorization: Bearer $NEKOWEB_API_KEY'"
