@@ -18,4 +18,4 @@ jobs:
       run: |
         curl --request GET \
         --url 'http://nekoweb.org/api/files/limits?=' \
-        --header 'Authorization: Bearer $NEKOWEB_API_KEY'"
+        --header 'Authorization: Bearer $NEKOWEB_API_KEY'
