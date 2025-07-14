@@ -19,3 +19,5 @@ jobs:
         curl --request GET \
         --url 'https://nekoweb.org/api/files/limits?=' \
         --header "Authorization: $NEKOWEB_API_KEY"
+  
+  #TODO: remind myself that the files "not_found.html" and "elements.css" cannot be deleted and a file with the same name must be uploaded instead
