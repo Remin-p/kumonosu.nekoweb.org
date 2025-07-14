@@ -1,0 +1,21 @@
+name: Somethingsomething
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  limits:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check limits 
+      env:
+        NEKOWEB_API_KEY: ${{ secrets.NEKOWEB_API_KEY }}
+      run: |
+        curl --request GET \
+        --url 'https://nekoweb.org/api/files/limits?=' \
+        --header "Authorization: $NEKOWEB_API_KEY"
