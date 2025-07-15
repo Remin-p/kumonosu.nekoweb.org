@@ -16,4 +16,4 @@ jobs:
       env:
         NEKOWEB_API_KEY: ${{ secrets.NEKOWEB_API_KEY }}
       run: |
-        pwd
+        ls ..
