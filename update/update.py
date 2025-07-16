@@ -30,7 +30,7 @@ url = "https://nekoweb.org/api/files/upload"
 headers = { "Authorization": NEKOWEB_API_KEY }
 
 for file in sendFiles:
-    files = { "files": (file, open(file), "application/octet-stream") }
+    files = { "files": (file, open(file, 'rb'), "application/octet-stream") }
     data = { "pathname": '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
 
     response = requests.request("POST", url, headers=headers, data=data, files=files)
