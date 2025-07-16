@@ -16,7 +16,7 @@ diffs = repo.head.commit.diff(last_commit)
 for d in diffs:
     sendFiles.append(d.a_path)
 
-print(repo.head.reference.log()[-1])
+print(repo.head.reference.log()[-1][1]) # Grabs the latest commit hash
 
 sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) for target in noSend)]
 sendFiles.reverse()
@@ -26,12 +26,13 @@ print(sendFiles)
 
 NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
-url = "https://nekoweb.org/api/files/upload"
-headers = { "Authorization": NEKOWEB_API_KEY }
+url = 'https://nekoweb.org/api/files/upload'
+headers = { 'Authorization': NEKOWEB_API_KEY }
 
 for file in sendFiles:
-    files = { "files": (file, open(file, 'rb'), "application/octet-stream") }
-    data = { "pathname": '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
+    files = { 'files': (file, open(file, 'rb'), 'application/octet-stream') }
+    data = { 'pathname': '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
 
-    response = requests.request("POST", url, headers=headers, data=data, files=files)
+    response = requests.request('POST', url, headers=headers, data=data, files=files)
     print(file, response.raise_for_status)
+
