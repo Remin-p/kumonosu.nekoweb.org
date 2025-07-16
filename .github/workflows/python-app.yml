@@ -11,9 +11,9 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+        NEKOWEB_API_KEY: ${{ secrets.NEKOWEB_API_KEY }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
