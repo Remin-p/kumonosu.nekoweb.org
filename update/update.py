@@ -1,5 +1,4 @@
 from git import Repo
-from dotenv import load_dotenv
 import requests
 import os
 
@@ -25,12 +24,10 @@ print(sendFiles)
 
 # Make a request to upload these files
 
-load_dotenv()
-
-API_KEY = os.getenv('API_KEY')
+NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
 url = "https://nekoweb.org/api/files/upload"
-headers = { "Authorization": API_KEY }
+headers = { "Authorization": NEKOWEB_API_KEY }
 
 for file in sendFiles:
     files = { "files": (file, open(file), "application/octet-stream") }
