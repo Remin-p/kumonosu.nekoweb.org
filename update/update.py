@@ -5,11 +5,11 @@ import os
 
 # Define files to be updated with diff
 
-repo = Repo('..')
+repo = Repo('.')
 sendFiles = []
 noSend = ['.github/','update/']
 
-with open('last_commit.txt','r') as file: 
+with open('update/last_commit.txt','r') as file: 
     last_commit = file.read().strip()
 
 diffs = repo.head.commit.diff(last_commit)
@@ -33,7 +33,7 @@ url = "https://nekoweb.org/api/files/upload"
 headers = { "Authorization": API_KEY }
 
 for file in sendFiles:
-    files = { "files": (file, open("../"+file), "application/octet-stream") }
+    files = { "files": (file, open(file), "application/octet-stream") }
     data = { "pathname": '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
 
     response = requests.request("POST", url, headers=headers, data=data, files=files)
