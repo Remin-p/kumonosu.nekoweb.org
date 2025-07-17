@@ -19,7 +19,6 @@ for d in diffs:
 print(repo.head.reference.log()[-1][1]) # Grabs the latest commit hash
 
 sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) for target in noSend)]
-sendFiles.reverse()
 print(sendFiles)
 
 # Make a request to upload these files
@@ -41,4 +40,3 @@ for file in sendFiles:
         raise SystemExit(err)
 
     print(file, response.text)
-
