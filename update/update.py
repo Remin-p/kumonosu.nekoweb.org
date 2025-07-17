@@ -1,6 +1,7 @@
 from git import Repo
 import requests
 import os
+import sys
 
 # Define files to be updated with diff
 
@@ -32,7 +33,6 @@ sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) 
 deleteFiles = [item for item in deleteFiles if not any(str(item).startswith(target) for target in noSend)]
 
 # Make a request to upload these files
-# TODO: Make request to delete files too
 
 NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
@@ -51,6 +51,27 @@ for file in sendFiles:
         raise SystemExit(err)
 
     print(file, response.text)
+
+# Make requests to delete files
+
+if len(deleteFiles) <= 0:
+    print("No files to delete from last commit. Exiting...")
+    sys.exit()
+
+url = 'https://nekoweb.org/api/files/delete'
+headers = { 'Authorization': NEKOWEB_API_KEY, 'content-type':'application/x-www-form-urlencoded' }
+
+for file in deleteFiles:
+    payload = f"pathname={file}"
+    
+    try:
+        response = requests.request('POST', url, headers=headers)
+        response.raise_for_status()
+    
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+    
+    print(payload, file, response.text)
 
 # TODO: Update the last_commit.txt with the latest commit hash
 
