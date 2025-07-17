@@ -24,11 +24,11 @@ for d in diffs:
     elif d.a_path and d.b_path: # Check if both paths exist
         sendFiles.append(d.a_path)
     
-print('Files to send:', sendFiles)
-print('Files to delete:', deleteFiles)
-
 sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) for target in noSend)]
 deleteFiles = [item for item in deleteFiles if not any(str(item).startswith(target) for target in noSend)]
+
+print('=> Files to send:', sendFiles)
+print('=> Files to delete:', deleteFiles)
 
 # Make requests to upload files
 
@@ -62,10 +62,12 @@ headers = { 'Authorization': NEKOWEB_API_KEY, 'content-type':'application/x-www-
 for file in deleteFiles:
     payload = f"pathname={file}"
     
+
+    print(f"-> File '{file}' delete (Payload '{payload}'), response: not yet <-")
     try:
-        response = requests.request('POST', url, data=payload, headers=headers)
+        response = requests.request('POST', url, headers=headers, data=payload)
         response.raise_for_status()
-    
+ 
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
     
