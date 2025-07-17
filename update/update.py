@@ -26,7 +26,7 @@ print(sendFiles)
 
 NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
-url = 'http://nekoweb.org/api/files/upload'
+url = 'https://nekoweb.org/api/files/upload'
 headers = { 'Authorization': NEKOWEB_API_KEY }
 
 for file in sendFiles:
