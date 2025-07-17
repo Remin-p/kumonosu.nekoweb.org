@@ -23,7 +23,7 @@ for d in diffs:
         deleteFiles.append(d.a_path)
     elif d.a_path and d.b_path: # Check if both paths exist
         sendFiles.append(d.a_path)
-    
+
 sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) for target in noSend)]
 deleteFiles = [item for item in deleteFiles if not any(str(item).startswith(target) for target in noSend)]
 
@@ -40,11 +40,11 @@ headers = { 'Authorization': NEKOWEB_API_KEY }
 for file in sendFiles:
     files = { 'files': (file, open(file, 'rb'), 'application/octet-stream') }
     data = { 'pathname': '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
-    
+
     try:
         response = requests.request('POST', url, headers=headers, data=data, files=files)
         response.raise_for_status()
-    
+
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 
@@ -61,16 +61,17 @@ headers = { 'Authorization': NEKOWEB_API_KEY, 'content-type':'application/x-www-
 
 for file in deleteFiles:
     payload = f"pathname={file}"
-    
 
-    print(f"-> File '{file}' delete (Payload '{payload}'), response: not yet <-")
     try:
         response = requests.request('POST', url, headers=headers, data=payload)
         response.raise_for_status()
  
     except requests.exceptions.HTTPError as err:
+        if response.status_code == 400:
+            print(f"=X 400, Failed to upload file {file} (payload '{payload}'): {response.text}!")
+            break
         raise SystemExit(err)
-    
+
     print(f"-> File '{file}' delete (Payload '{payload}'), response: {response.status_code,response.text} <-")
 
 # TODO: Update the last_commit.txt with the latest commit hash
