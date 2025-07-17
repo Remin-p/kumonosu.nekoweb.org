@@ -48,7 +48,7 @@ for file in sendFiles:
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 
-    print(file, response.text)
+    print(f"-> File '{file}' upload, response: {response.status_code,response.text} <-")
 
 # Make requests to delete files
 
@@ -69,7 +69,7 @@ for file in deleteFiles:
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
     
-    print(payload, file, response.text)
+    print(f"-> File '{file}' delete (Payload '{payload}'), response: {response.status_code,response.text} <-")
 
 # TODO: Update the last_commit.txt with the latest commit hash
 
