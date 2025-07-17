@@ -63,7 +63,7 @@ for file in deleteFiles:
     payload = f"pathname={file}"
     
     try:
-        response = requests.request('POST', url, headers=headers)
+        response = requests.request('POST', url, data=payload, headers=headers)
         response.raise_for_status()
     
     except requests.exceptions.HTTPError as err:
