@@ -26,13 +26,19 @@ print(sendFiles)
 
 NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
-url = 'https://nekoweb.org/api/files/upload'
+url = 'http://nekoweb.org/api/files/upload'
 headers = { 'Authorization': NEKOWEB_API_KEY }
 
 for file in sendFiles:
     files = { 'files': (file, open(file, 'rb'), 'application/octet-stream') }
     data = { 'pathname': '.' if file.find('/') == -1 else file[:file.rfind('/')+1] }
+    
+    try:
+        response = requests.request('POST', url, headers=headers, data=data, files=files)
+        response.raise_for_status()
+    
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
 
-    response = requests.request('POST', url, headers=headers, data=data, files=files)
-    print(file, response.raise_for_status)
+    print(file, response.text)
 
