@@ -27,12 +27,10 @@ for d in diffs:
 print('Files to send:', sendFiles)
 print('Files to delete:', deleteFiles)
 
-print(repo.head.reference.log()[-1][1]) # Grabs the latest commit hash
-
 sendFiles = [item for item in sendFiles if not any(str(item).startswith(target) for target in noSend)]
 deleteFiles = [item for item in deleteFiles if not any(str(item).startswith(target) for target in noSend)]
 
-# Make a request to upload these files
+# Make requests to upload files
 
 NEKOWEB_API_KEY = os.getenv('NEKOWEB_API_KEY')
 
