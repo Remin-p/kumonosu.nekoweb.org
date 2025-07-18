@@ -8,7 +8,7 @@ import sys
 repo = Repo('.')
 sendFiles = []
 deleteFiles = []
-noSend = ['.github/', 'update/']
+noSend = ['.github/', 'update/', 'README.md']
 
 with open('update/last_commit.txt', 'r') as file:
     last_commit = file.read().strip()
