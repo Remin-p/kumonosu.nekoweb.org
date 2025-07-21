@@ -10,6 +10,7 @@ Working now:
 
 Priorities:
 
+- Home page
 - Loading screen
 - Introduction
 - Contact info (Guestbook)
