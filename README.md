@@ -1,4 +1,4 @@
-The reader has stumbled upon the repository for [my personal website](https://truss.nekoweb.org/)!
+The reader has stumbled upon the repository for [my personal website](https://kumonosu.nekoweb.org/)!
 
 The reason for this repo is that Nekoweb has no guarantee that the user's data will be able to be fully recovered in case of data loss, so this repo can serve as a backup.
 
